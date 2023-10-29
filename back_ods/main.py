@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from pydantic import BaseModel
 import pandas as pd
 import numpy as np
 import joblib
@@ -14,6 +15,12 @@ app = FastAPI(
     description="This is a simple app that clasifies text into 3 categories of the ODS using a machine learning model.",
     title="ODS Classifier",
 )
+
+class TextRequest(BaseModel):
+    texto: str
+
+class TextsRequest(BaseModel):
+    textos: list
 
 def fix_malformed_words(text):
     text = ftfy.fix_text(text)
@@ -46,17 +53,39 @@ async def root():
     return {"message": "Hello World"}
 
 @app.post("/texts/")
-async def read_item(
-    texto: str,
+async def classifyText(
+    text_data: TextRequest
 ):
+    texto = text_data.texto    
     data = {"Textos_espanol":[texto]}
     df = pd.DataFrame(data)
     df["sdg"] = np.nan
     pipeline_loaded = joblib.load(os.path.dirname(__file__) + '/../model.joblib')
     df['sdg'] = pipeline_loaded.predict(df['Textos_espanol'])
-    print(df)
+    fila = df[df['Textos_espanol'] == texto]
+    sdg = -1
+    if not fila.empty:
+        sdg = fila['sdg'].iloc[0]
+    return {"texto_0": texto, "sdg":str(sdg)}
 
-    return {"message": "Hello World"}
+@app.post("/classify-multiple-texts/")
+async def classifyMultipleTexts(text_data: TextsRequest):
+    textos = text_data.textos
+    results = []
+
+    for texto in textos:
+        data = {"Textos_espanol": [texto]}
+        df = pd.DataFrame(data)
+        df["sdg"] = np.nan
+        pipeline_loaded = joblib.load(os.path.dirname(__file__) + '/../model.joblib')
+        df['sdg'] = pipeline_loaded.predict(df['Textos_espanol'])
+        fila = df[df['Textos_espanol'] == texto]
+        sdg = -1
+        if not fila.empty:
+            sdg = fila['sdg'].iloc[0]
+        results.append({"texto": texto, "sdg": str(sdg)})
+
+    return results
 
 if __name__ == "__main__":
     uvicorn.run("main:app", reload=True)
