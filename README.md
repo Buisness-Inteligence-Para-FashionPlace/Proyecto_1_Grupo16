@@ -20,4 +20,5 @@ Ejecución del servidor backend
 4. python ./back_ods/main.py
 
 Para salir el entorno virtual ejecuta:
+
 5. deactivate
