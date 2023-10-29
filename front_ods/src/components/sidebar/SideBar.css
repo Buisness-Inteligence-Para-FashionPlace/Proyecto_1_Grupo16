@@ -1,5 +1,5 @@
 .sidebar {
-  background-color: rgb(128, 128, 128);
+  background-color: rgb(47, 45, 58);
   height: 100%;
   align-items: center;
   padding: 1rem;
@@ -7,13 +7,14 @@
 
 .sidebar .custom-button {
   width: 100%;
-  background-color: rgb(80, 80, 80);
+  background-color: #E4BFC1;
   border: none;
   color: black;
+  font-weight: bold;
 }
 
 .sidebar .custom-button:hover {
-  background-color: rgb(80, 80, 80);
+  background-color: #ad898a;
   color: black;
 }
 

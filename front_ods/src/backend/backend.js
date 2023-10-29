@@ -1,5 +1,5 @@
 
-const BASE_URL = 'http://localhost:XXXX'
+const BASE_URL = 'http://localhost:8000'
 
 export const getPredict = async function (data) {
 
@@ -27,7 +27,7 @@ export const getHistory = async function (data) {
         method: "GET",
     };
     
-    return fetch(BASE_URL + "/history", requestGetHistory)
+    return fetch(BASE_URL + "/storic", requestGetHistory)
         .then((response) => response.json())
         .then((data) => data);
     
