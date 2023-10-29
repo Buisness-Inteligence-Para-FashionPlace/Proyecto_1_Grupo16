@@ -93,6 +93,7 @@ async def classifyText(
     if not archivo:
         current_datetime = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
         file = os.path.join("./back_ods/storic", f"{current_datetime}.csv")
+        archivo = f"{current_datetime}.csv"
         with open(file, 'w', newline='', encoding='utf-8') as csvfile:
             writer = csv.writer(csvfile)
             writer.writerow(["Textos_espanol", "sdg"])
@@ -104,13 +105,20 @@ async def classifyText(
             writer = csv.writer(csvfile)
             writer.writerow(data_to_append)
 
-    return {"texto": texto, "sdg":str(sdg)}
+    return {"texto": texto, "sdg":str(sdg), "archivo": archivo}
 
 @app.post("/classify-multiple-texts/")
 async def classifyMultipleTexts(text_data: TextsRequest):
     textos = text_data.textos
     archivo = text_data.archivo
     results = []
+    current_datetime = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    valid = True
+    if not archivo:
+        archivo = f"{current_datetime}.csv"
+    else:
+        valid = False
+
 
     for texto in textos:
         data = {"Textos_espanol": [texto]}
@@ -122,11 +130,9 @@ async def classifyMultipleTexts(text_data: TextsRequest):
         sdg = -1
         if not fila.empty:
             sdg = fila['sdg'].iloc[0]
+        results.append({"texto": texto, "sdg": str(sdg), "archivo": archivo})
 
-        results.append({"texto": texto, "sdg": str(sdg)})
-
-    if not archivo:
-        current_datetime = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    if valid:
         file = os.path.join("./back_ods/storic", f"{current_datetime}.csv")
         with open(file, 'w', newline='', encoding='utf-8') as csvfile:
             writer = csv.writer(csvfile)
@@ -149,7 +155,7 @@ async def getStoricIndividual(file_name: str):
     with open(file, 'r', newline='', encoding='utf-8') as csvfile:
         reader = csv.reader(csvfile)
         for row in reader:
-            if row != ["Textos_espanol", "sdg"]:
+            if row != ["Textos_espanol", "sdg", "archivo"]:
                 results.append({"texto": row[0], "sdg": row[1]})
     return results
 
