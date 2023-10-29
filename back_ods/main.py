@@ -13,6 +13,7 @@ from sklearn.base import BaseEstimator, TransformerMixin
 from nltk.corpus import stopwords
 from num2words import num2words
 import uvicorn
+from fastapi.middleware.cors import CORSMiddleware
 
 """
 Text analysis pipeline methods that are needed.
@@ -46,6 +47,16 @@ class TextPreprocessor(BaseEstimator, TransformerMixin):
 app = FastAPI(
     description="This is a simple app that clasifies text into 3 categories of the ODS using a machine learning model.",
     title="ODS Classifier",
+)
+
+origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 class TextRequest(BaseModel):
