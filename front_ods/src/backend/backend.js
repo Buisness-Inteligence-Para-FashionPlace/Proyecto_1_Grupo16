@@ -28,8 +28,6 @@ export const getHistory = async function (data) {
     };
     
     return fetch(BASE_URL + "/storic", requestGetHistory)
-        .then((response) => response.json())
-        .then((data) => data);
     
 }
 

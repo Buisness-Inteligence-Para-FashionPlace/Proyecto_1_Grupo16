@@ -12,9 +12,11 @@ function SideBar() {
 
   useEffect(() => {
     
-    getHistory().then((res) => {
-      setHistoryList(res);
-      if (res.length === 0) {
+    getHistory().then((response) => response.json())
+    .then((data) => {
+      
+      setHistoryList(data);
+      if (data.length === 0) {
         setEmpty("No hay historial");
       } else {
         setEmpty("");

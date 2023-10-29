@@ -1,5 +1,5 @@
 .sidebar {
-  background-color: rgb(47, 45, 58);
+  background-color: #2f2d3a;
   height: 100%;
   align-items: center;
   padding: 1rem;
@@ -7,7 +7,7 @@
 
 .sidebar .custom-button {
   width: 100%;
-  background-color: #E4BFC1;
+  background-color: #FDD1B1;
   border: none;
   color: black;
   font-weight: bold;
