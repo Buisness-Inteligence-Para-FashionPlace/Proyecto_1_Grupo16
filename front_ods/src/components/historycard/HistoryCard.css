@@ -1,0 +1,10 @@
+.sidebar .custom-card {
+    background: none;
+    color: black;
+    border: 1px solid black;
+    text-align: left;
+}
+
+.sidebar .custom-card:hover {
+    background: rgb(150, 150, 150);
+}

@@ -16,9 +16,9 @@ function Header() {
     return (
         <div className="banner">
             <Titulo>WELCOME TO ODS CLASSIFIER</Titulo>
-            <div class="form-control">
-                <input class="input input-alt" placeholder="Type something intelligent" required="" type="text"/>
-                <span class="input-border input-border-alt"></span>
+            <div className="form-control">
+                <input className="input input-alt" placeholder="Type something intelligent" required="" type="text"/>
+                <span className="input-border input-border-alt"></span>
             </div>
         </div>
 

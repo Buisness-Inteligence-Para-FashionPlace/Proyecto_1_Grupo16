@@ -1,0 +1,27 @@
+.sidebar {
+  background-color: rgb(128, 128, 128);
+  height: 100%;
+  align-items: center;
+  padding: 1rem;
+}
+
+.sidebar .custom-button {
+  width: 100%;
+  background-color: rgb(80, 80, 80);
+  border: none;
+  color: black;
+}
+
+.sidebar .custom-button:hover {
+  background-color: rgb(80, 80, 80);
+  color: black;
+}
+
+.sidebar .card-container {
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.sidebar .card-container::-webkit-scrollbar {
+  width: 0px;
+}
