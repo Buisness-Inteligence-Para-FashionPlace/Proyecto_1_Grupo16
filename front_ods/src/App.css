@@ -1,0 +1,11 @@
+
+.ods{
+  height: 100vh; 
+  background-image: url('./Fondo.PNG');
+  background-size: cover; 
+  background-position: center;
+}
+.historial {
+  background-color: black;
+}
+
