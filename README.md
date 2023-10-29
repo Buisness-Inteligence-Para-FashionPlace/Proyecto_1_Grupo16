@@ -1,8 +1,8 @@
 # Proyecto1
 Analítica de textos
-Javier Cerino 
-Marco Zuliani
-Daniel Arango
+- Javier Cerino
+- Marco Zuliani
+- Daniel Arango
 
 ## Ejecución del proyecto Backend
 Para poder ejecutar el servidor backend se deben ejecutar los siguientes comandos en el directorio raíz del proyecto: (La carpeta donde se encuentra este readme)
