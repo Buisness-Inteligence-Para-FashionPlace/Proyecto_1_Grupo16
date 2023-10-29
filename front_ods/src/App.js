@@ -13,12 +13,18 @@ function App() {
         </Col>
         <Col lg ='10' className='right px-0'>
           <div className="ods">
+<<<<<<< Updated upstream
             <Row>
                 <Header />
             </Row>
             <Row>
                 <Registro />
             </Row>
+=======
+          <Row>
+              <Header />
+          </Row>
+>>>>>>> Stashed changes
           </div>
         </Col>
       </Row>
