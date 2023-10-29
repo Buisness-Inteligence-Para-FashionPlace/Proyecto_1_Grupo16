@@ -2,37 +2,32 @@ import {React, useEffect, useState} from "react";
 import styled from 'styled-components';
 import "./header.css";
 import { Card, Row } from "react-bootstrap";
+import { getPredict } from "../../backend/backend";
 
 
 
 
-function Header() {
+function Header(props) {
     const [inputValue, setInputValue] = useState('');
+    const[texto, setTexto] = useState('');
     const [submitted, setSubmitted] = useState(false);
     const [file, setFile] = useState(null);
     const [upload, setUpload] = useState(false);
     const [ods, setOds] = useState('');
-    const fetchApi = async () => {
-        const response = await fetch('http://localhost:5000/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({text: inputValue})
-        });
-        const data = await response.json();
-        setOds(data.ods);
-    };
     useEffect(() => {
         if (submitted) {
-            fetchApi();
-        }
+            getPredict({'texto': inputValue}).then((response) => response.json()).then((data) => {
+                setOds(data.ods);
+        })}
+        ;
     }, []
     );
   
     const handleSubmit = (e) => {
       e.preventDefault();
       setSubmitted(true);
+      setTexto(inputValue);
+      setInputValue('');
     };
     const handleUpload = (e) => {
         e.preventDefault();
@@ -94,13 +89,13 @@ function Header() {
             </Row>
             ) : null
             }
-            {submitted &&
+            {submitted && 
             <Row className="row-result">
             <Card className="card-result">
                 <Card.Body>
                     <Card.Title>Texto</Card.Title>
                     <Card.Text>
-                        {inputValue}
+                        {texto}
                     </Card.Text>
                 </Card.Body>
             </Card>
