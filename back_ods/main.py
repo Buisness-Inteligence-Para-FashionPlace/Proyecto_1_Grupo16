@@ -149,7 +149,7 @@ async def getStoric():
             reader = csv.reader(csvfile)
             next(reader)
             first_row = next(reader)
-            results.append({"texto": first_row[0][0:50]})
+            results.append({"texto": first_row[0][0:50], "archivo": file})
     return results
 
 

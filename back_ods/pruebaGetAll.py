@@ -1,6 +1,6 @@
 import requests
 
-url = 'http://localhost:8000/storic/'  # Reemplaza con la URL correcta de tu servidor
+url = 'http://localhost:8000/storic/'
 response = requests.get(url)
 
 if response.status_code == 200:
