@@ -13,12 +13,9 @@ function App() {
         </Col>
         <Col lg ='10' className='right px-0'>
           <div className="ods">
-            <Row>
-                <Header />
-            </Row>
-            <Row>
-                <Registro />
-            </Row>
+          <Row>
+              <Header />
+          </Row>
           </div>
         </Col>
       </Row>
