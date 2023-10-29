@@ -52,12 +52,6 @@ function Header() {
     return (
         <div className="banner">
             <Titulo>WELCOME TO ODS CLASSIFIER</Titulo>
-<<<<<<< Updated upstream
-            <div className="form-control">
-                <input className="input input-alt" placeholder="Type something intelligent" required="" type="text"/>
-                <span className="input-border input-border-alt"></span>
-=======
-            
             <div className= 'form-control'>
                 <form  className="form">
                     <input 
@@ -80,7 +74,6 @@ function Header() {
                     </button>
 
                 </form>
->>>>>>> Stashed changes
             </div>
             
             {upload && file == null ? (
