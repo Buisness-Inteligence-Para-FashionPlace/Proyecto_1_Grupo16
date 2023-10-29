@@ -9,7 +9,7 @@ Para poder ejecutar el servidor backend se deben ejecutar los siguientes comando
 en el terminal de windows (cmd) ejecuta:
 
 1. virtualenv appClasificacion
-2. venv\Scripts\activate
+2. appClasificacion\Scripts\activate
 
 Instalación de las dependencias
 
