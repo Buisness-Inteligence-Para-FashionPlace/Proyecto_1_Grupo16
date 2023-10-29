@@ -12,6 +12,7 @@ en el terminal de windows (cmd) ejecuta:
 2. venv\Scripts\activate
 
 Instalación de las dependencias
+
 3. pip install -r requirements.txt
 
 Ejecución del servidor backend
