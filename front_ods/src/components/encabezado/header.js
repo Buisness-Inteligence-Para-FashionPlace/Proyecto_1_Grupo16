@@ -117,7 +117,7 @@ function Header(props) {
                 </Row>
             ) : null
             }
-            {/* {submitted && 
+            {submitted && 
             <Row className="row-result">
             <Card className="card-result">
                 <Card.Body>
@@ -136,7 +136,7 @@ function Header(props) {
                 </Card.Body>
             </Card>
             </Row>
-            } */}
+            }
         </div>
 
     );
