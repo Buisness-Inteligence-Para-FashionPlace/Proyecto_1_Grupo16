@@ -246,3 +246,12 @@
   .custum-file-upload input {
     display: none;
   }
+
+  .scrolp {
+    height: 100vh;
+    overflow-y: auto;
+  }
+
+  .scrolp::-webkit-scrollbar {
+    width: 0px;
+  }

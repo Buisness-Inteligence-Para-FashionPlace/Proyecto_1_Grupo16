@@ -2,33 +2,53 @@ import {React, useEffect, useState} from "react";
 import styled from 'styled-components';
 import "./header.css";
 import { Card, Row } from "react-bootstrap";
-import { getPredict } from "../../backend/backend";
+import { postPredict, getPredicts } from "../../backend/backend";
 
 
 
 
 function Header(props) {
     const [inputValue, setInputValue] = useState('');
-    const[texto, setTexto] = useState('');
-    const [submitted, setSubmitted] = useState(false);
     const [uploadfile, uploadsetFile] = useState(props.file);
     const [upload, setUpload] = useState(false);
-    const [ods, setOds] = useState('');
+
+    const [update, setUpdate] = useState(false);
+    const [fileName, setFileName] = useState("");
+    const [resultList, setResultList] = useState([]);
+    const [textoPredecir, setTextoPredecir] = useState([]);
 
     useEffect(() => {
-        if (submitted) {
-            getPredict(texto, props.actualFile).then((response) => response.json()).then((data) => {
-                setOds(data.ods);
-        })}
-        ;
-    }, []);
+        setFileName(props.actualFile);
+        gettearResultados();
+    }, [props.actualFile]);
+
+    useEffect(() => {
+        console.log(resultList)
+    }, [update]);
   
+    const gettearResultados = () => {
+        getPredicts(fileName).then((response) => response.json()).then((data) => {
+            setResultList(data);
+            setUpdate(!update);
+        })
+    }
+
     const handleSubmit = (e) => {
-      e.preventDefault();
-      setSubmitted(true);
-      setTexto(inputValue);
-      setInputValue('');
+        e.preventDefault();
+        if (inputValue !== '') {
+            textoPredecir.push(inputValue);
+        }
+        postPredict(fileName, textoPredecir)
+            .then((responsePost) => responsePost.json())
+            .then((dataPost) => {
+                setFileName(dataPost.archivo);
+                gettearResultados()
+            })
+            .catch((err) => { console.log(err) });
+        setInputValue('');
+        setTextoPredecir([]);
     };
+
     const handleUpload = (e) => {
         e.preventDefault();
         setUpload(true);
@@ -90,26 +110,36 @@ function Header(props) {
             </Row>
             ) : null
             }
-            {submitted && 
-            <Row className="row-result">
-            <Card className="card-result">
-                <Card.Body>
-                    <Card.Title>Texto</Card.Title>
-                    <Card.Text>
-                        {texto}
-                    </Card.Text>
-                </Card.Body>
-            </Card>
-            <Card className="card-result">
-                <Card.Body>
-                    <Card.Title>ODS</Card.Title>
-                    <Card.Text>
-                        {ods}
-                    </Card.Text>
-                </Card.Body>
-            </Card>
-            </Row>
-            }
+            <div className="scrolp">  
+                { resultList.map((history) => {
+                    if (history.sdg !== "sdg") {
+                        return <>
+                            <Row>
+                                <Card className="card-result">
+                                    <Card.Body>
+                                        <Card.Title>Me</Card.Title>
+                                        <Card.Text>
+                                            {history.texto}
+                                        </Card.Text>
+                                    </Card.Body>
+                                </Card>
+                            </Row>
+                            <Row>
+                                <Card className="card-result">
+                                    <Card.Body>
+                                        <Card.Title>Predictor ODS </Card.Title>
+                                        <Card.Text>
+                                            Según el texto ingresado, se considera que la clasificación ODS adecuada es: {history.sdg}
+                                        </Card.Text>
+                                    </Card.Body>
+                                </Card>
+                            </Row>
+                        </>
+                    } else {
+                        return null;
+                    }
+                })}
+            </div>
         </div>
 
     );
