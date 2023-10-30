@@ -9,9 +9,7 @@ import { postPredict, getPredicts } from "../../backend/backend";
 
 function Header(props) {
     const [inputValue, setInputValue] = useState('');
-    const [uploadfile, uploadsetFile] = useState(props.file);
     const [upload, setUpload] = useState(false);
-
     const [update, setUpdate] = useState(false);
     const [fileName, setFileName] = useState("");
     const [resultList, setResultList] = useState([]);
