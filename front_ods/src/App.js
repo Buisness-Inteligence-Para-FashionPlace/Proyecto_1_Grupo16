@@ -22,7 +22,7 @@ function App() {
         <Col lg ='10' className='right px-0'>
           <div className="ods">
           <Row>
-              <Header />
+              <Header actualFile={file} />
           </Row>
           </div>
         </Col>

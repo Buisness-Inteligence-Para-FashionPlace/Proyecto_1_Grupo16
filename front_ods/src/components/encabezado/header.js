@@ -11,18 +11,17 @@ function Header(props) {
     const [inputValue, setInputValue] = useState('');
     const[texto, setTexto] = useState('');
     const [submitted, setSubmitted] = useState(false);
-    const [file, setFile] = useState(props.file);
     const [uploadfile, uploadsetFile] = useState(props.file);
     const [upload, setUpload] = useState(false);
     const [ods, setOds] = useState('');
+
     useEffect(() => {
         if (submitted) {
-            getPredict(texto, file).then((response) => response.json()).then((data) => {
+            getPredict(texto, props.actualFile).then((response) => response.json()).then((data) => {
                 setOds(data.ods);
         })}
         ;
-    }, []
-    );
+    }, []);
   
     const handleSubmit = (e) => {
       e.preventDefault();
