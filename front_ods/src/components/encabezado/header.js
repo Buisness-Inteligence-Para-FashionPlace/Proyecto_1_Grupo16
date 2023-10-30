@@ -11,12 +11,13 @@ function Header(props) {
     const [inputValue, setInputValue] = useState('');
     const[texto, setTexto] = useState('');
     const [submitted, setSubmitted] = useState(false);
-    const [file, setFile] = useState(null);
+    const [file, setFile] = useState(props.file);
+    const [uploadfile, uploadsetFile] = useState(props.file);
     const [upload, setUpload] = useState(false);
     const [ods, setOds] = useState('');
     useEffect(() => {
         if (submitted) {
-            getPredict({'texto': inputValue}).then((response) => response.json()).then((data) => {
+            getPredict(texto, file).then((response) => response.json()).then((data) => {
                 setOds(data.ods);
         })}
         ;
@@ -35,7 +36,8 @@ function Header(props) {
     };
     const setFileHandler = (e) => {
         e.preventDefault();
-        setFile(e.target.files[0]);
+        uploadsetFile(e.target.files[0]);
+        console.log(uploadfile);
     };
     const Titulo = styled.h2`
         font-family: 'Bitter', serif;
@@ -71,7 +73,7 @@ function Header(props) {
                 </form>
             </div>
             
-            {upload && file == null ? (
+            {upload && uploadfile == null ? (
             <Row>
             <label for="file" class="custum-file-upload">
             <div class="icon">

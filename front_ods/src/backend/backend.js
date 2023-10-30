@@ -1,17 +1,18 @@
 
 const BASE_URL = 'http://localhost:8000'
 
-export const getPredict = async function (data) {
+export const getPredict = async function (texto, archivo) {
 
     const requestPredict = {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({'texto': texto,
+                              'archivo': archivo}),
     };
     
-    return fetch(BASE_URL + "/predict", requestPredict).then(async (response) => {
+    return fetch(BASE_URL + "/texts", requestPredict).then(async (response) => {
         if (response.status === 412) {
             throw new Error("Error: " + (await response.text()));
         } else {
