@@ -29,7 +29,7 @@ function Header(props) {
     }, [update]);
   
     const gettearResultados = () => {
-        getPredicts(fileName).then((response) => response.json()).then((data) => {
+        getPredicts(props.actualFile).then((response) => response.json()).then((data) => {
             setResultList(data);
             setUpdate(!update);
         })

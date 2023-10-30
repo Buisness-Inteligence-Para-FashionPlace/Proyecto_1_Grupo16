@@ -22,3 +22,14 @@ Ejecución del servidor backend
 Para salir el entorno virtual ejecuta:
 
 5. deactivate
+
+Para la apliación Front-end se debe ejecutar el siguiente comando en el directorio raíz del proyecto: (La carpeta donde se encuentra el proyecto)
+
+1. cd front_ods
+
+2. npm install
+
+Ejecución del servidor Front-end
+
+3. npm start
+
