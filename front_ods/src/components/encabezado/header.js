@@ -18,14 +18,13 @@ function Header(props) {
     const [textoPredecir, setTextoPredecir] = useState([]);
 
     useEffect(() => {
-        // if (submitted) {
-        //     getPredict(texto, file).then((response) => response.json()).then((data) => {
-        //         setOds(data.ods);
-        // })}
-        // ;
-    }, []
-    );
-
+        if (submitted) {
+            getPredict(texto, props.actualFile).then((response) => response.json()).then((data) => {
+                setOds(data.ods);
+        })}
+        ;
+    }, []);
+  
     const handleSubmit = (e) => {
         e.preventDefault();
         if (inputValue !== '') {
@@ -33,7 +32,7 @@ function Header(props) {
         }
 
     };
-    
+
     const handleUpload = (e) => {
         e.preventDefault();
         setUpload(!upload);
