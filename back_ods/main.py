@@ -69,56 +69,18 @@ class TextsRequest(BaseModel):
     textos: list
     archivo: Optional[str]  
 
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
-
 @app.post("/texts/")
-async def classifyText(
-    text_data: TextRequest
-):
-    texto = text_data.texto
-    archivo = text_data.archivo
-
-    data = {"Textos_espanol":[texto]}
-    df = pd.DataFrame(data)
-    df["sdg"] = np.nan
-    pipeline_loaded = joblib.load(os.path.dirname(__file__) + '/../model.joblib')
-    df['sdg'] = pipeline_loaded.predict(df['Textos_espanol'])
-    fila = df[df['Textos_espanol'] == texto]
-    sdg = -1
-    if not fila.empty:
-        sdg = fila['sdg'].iloc[0]
-
-    if not archivo:
-        current_datetime = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-        file = os.path.join("./back_ods/storic", f"{current_datetime}.csv")
-        archivo = f"{current_datetime}.csv"
-        with open(file, 'w', newline='', encoding='utf-8') as csvfile:
-            writer = csv.writer(csvfile)
-            writer.writerow(["Textos_espanol", "sdg"])
-            writer.writerow([texto, sdg])
-    else:
-        data_to_append = [texto, sdg]
-        file = os.path.join("./back_ods/storic", archivo)
-        with open(file, 'a', newline='', encoding='utf-8') as csvfile:
-            writer = csv.writer(csvfile)
-            writer.writerow(data_to_append)
-
-    return {"texto": texto, "sdg":str(sdg), "archivo": archivo}
-
-@app.post("/classify-multiple-texts/")
 async def classifyMultipleTexts(text_data: TextsRequest):
     textos = text_data.textos
     archivo = text_data.archivo
     results = []
+
     current_datetime = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
     valid = True
     if not archivo:
         archivo = f"{current_datetime}.csv"
     else:
         valid = False
-
 
     for texto in textos:
         data = {"Textos_espanol": [texto]}
@@ -130,7 +92,7 @@ async def classifyMultipleTexts(text_data: TextsRequest):
         sdg = -1
         if not fila.empty:
             sdg = fila['sdg'].iloc[0]
-        results.append({"texto": texto, "sdg": str(sdg), "archivo": archivo})
+        results.append({"texto": texto, "sdg": str(sdg)})
 
     if valid:
         file = os.path.join("./back_ods/storic", f"{current_datetime}.csv")
@@ -146,7 +108,7 @@ async def classifyMultipleTexts(text_data: TextsRequest):
             for result in results:
                 writer.writerow([result["texto"], result["sdg"]])
 
-    return results
+    return {"textosProcesados": str(len(results)), "archivo": archivo}
 
 @app.get("/storic/{file_name}")
 async def getStoricIndividual(file_name: str):
