@@ -255,3 +255,7 @@
   .scrolp::-webkit-scrollbar {
     width: 0px;
   }
+
+  .espacio {
+    margin-bottom: 10em;
+  }
