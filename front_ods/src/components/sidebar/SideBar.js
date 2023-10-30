@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { getHistory } from "../../backend/backend";
 
 
-function SideBar() {
+function SideBar(props) {
 
   const [historyList, setHistoryList] = useState([]);
   const [empty, setEmpty] = useState("");
@@ -26,13 +26,18 @@ function SideBar() {
     
   }, [])
 
+  const handleButtonClick = () => {
+    console.log('');
+    props.onFileUpdate('')
+  }
+
   return (
     <div className="text-center sidebar">
-      <Button className='custom-button' size="lg" onClick={() => console.log("Crear Nueva")}>
+      <Button className='custom-button' size="lg" onClick={handleButtonClick}>
         Crear Nueva
       </Button>
       <div className="card-container mt-3">
-        { historyList.map((history) => <HistoryCard text={history.texto}/>) }
+        { historyList.map((history) => <HistoryCard key={history.archivo} text={history.texto} archivo={history.archivo} onClick={() => props.onFileUpdate(history.archivo)} />) }
         { (empty !== "") && <p style={{ color: 'white' }}>{empty}</p>}
       </div>
     </div>
