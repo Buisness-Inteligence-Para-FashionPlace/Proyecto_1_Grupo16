@@ -17,7 +17,11 @@ function Header(props) {
 
     useEffect(() => {
         setFileName(props.actualFile);
-        gettearResultados();
+        if(props.actualFile !== '') {
+            gettearResultados();
+        } else {
+            setResultList([]);
+        }
     }, [props.actualFile]);
 
     useEffect(() => {
