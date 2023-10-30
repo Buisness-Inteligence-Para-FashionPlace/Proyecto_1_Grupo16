@@ -1,24 +1,18 @@
 
 const BASE_URL = 'http://localhost:8000'
 
-export const getPredict = async function (texto, archivo) {
+export const postPredict = async function (archivo, textos) {
 
     const requestPredict = {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({'texto': texto,
+        body: JSON.stringify({'textos': textos,
                               'archivo': archivo}),
     };
     
-    return fetch(BASE_URL + "/texts", requestPredict).then(async (response) => {
-        if (response.status === 412) {
-            throw new Error("Error: " + (await response.text()));
-        } else {
-            return response.json();
-        }
-    });
+    return fetch(BASE_URL + "/texts", requestPredict)
 
 }
 
@@ -32,22 +26,12 @@ export const getHistory = async function (data) {
     
 }
 
-export const postHistory = async function (data) {
+export const getPredicts = async function (archivo) {
 
-    const requestPostHistory = {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
+    const requestGetHistory = {
+        method: "GET",
     };
     
-    return fetch(BASE_URL + "/history", requestPostHistory).then(async (response) => {
-        if (response.status === 412) {
-            throw new Error("Error: " + (await response.text()));
-        } else {
-            return response.json();
-        }
-    });
-
+    return fetch(BASE_URL + "/storic/"+archivo, requestGetHistory)
+    
 }
